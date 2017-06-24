@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Person</title>
+</head>
+<body>
+<!--HTML-->
+
+<canvas id="canvas" width="100" height="100"></canvas>
+
+<script>
+
+var context = document.getElementById('canvas').getContext('2d');
+var width = 100, height = 100;
+
+var man = loadImage('img/person1.png', 26, 44, 6);
+var man1 = loadImage('img/person1 - Jimmy.png', 26, 44, 6);
+
+setInterval(function() {
+	context.clearRect(0, 0, 100, 100);
+	drawImage(man, 0, 0);
+	drawImage(man1, 50, 0);
+}, 100);
+
+function drawImage(img, x, y) {
+
+	if(!img.loaded) return;
+
+	if(img.num >= img.count)
+		img.num = 1;
+	else img.num += 1;
+
+	context.drawImage(img.dom, img.width*(img.num-1), 0, img.width, img.height, x, y, 26, 44);
+
+}
+
+function loadImage(path, width, height, count) {
+	var image = document.createElement('img');
+
+	var result = {
+		dom : image,
+		width : width,
+		height : height,
+		count : count,
+		loaded : false,
+		num : 1
+	};
+
+	image.onload = function() {
+		result.loaded = true;
+	};
+	image.src = path;
+
+	return result;
+}
+
+
+
+
+</script>
+<!--END-->
+</body>
+</html>
